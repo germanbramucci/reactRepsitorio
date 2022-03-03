@@ -31,51 +31,7 @@
   color: #61dafb;
 }
 
-.navBar{
-  background-color: #B0E0E6;
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row nowrap;
-  align-items: center;
-  margin: 0%;
-  padding: 0%;
-}
 
-.items{
-  color: black;
-  font-size: 28px;
-  text-decoration: none;
-  font-weight: 500;
-  
-}
-
-.logo{
-  height: 100px;
-  width: 120px;
-  margin: 0%;
-
-}
-a{
-  margin: 0%;
-}
-.main-nav {
-	margin-top: 5px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.main-nav .items{
-  padding: 25px 25px;
-  margin: 10px 10px;
-	text-transform: uppercase;
-	text-align: center;
-}
-.main-nav .items:hover {
-	color: white;
-}
 
 @keyframes App-logo-spin {
   from {
