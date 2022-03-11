@@ -3,7 +3,7 @@ import React from 'react'
 import logo from '../logoD.jpg'
 import Carrito from './Carrito'
 
-function navBar() {
+function NavBar() {
     return<>
         <nav className='navBar'>
             <a href=""><img src={logo} className="logo"/></a>
@@ -21,12 +21,13 @@ function navBar() {
                         <a href="" className='items'>Login</a>
                     </li>
                     <li>
-                        <a href="" className="logo"><Carrito/></a>
+                        <a href="" className="logo"></a>
                     </li>
                 </ul>
+                <Carrito/>
         </nav>
     </>
 }
 
 
-export default navBar
+export default NavBar
