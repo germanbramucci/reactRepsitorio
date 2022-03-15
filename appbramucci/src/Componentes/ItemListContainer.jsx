@@ -1,34 +1,37 @@
-import React from 'react'
-import ItemCount from './ItemCount'
+import React, { useEffect, useState } from "react";
+import ItemList from "./ItemList";
 
-function ItemListContainer(props){
-    return<>
-        <div className="card" >
-            <img src="..." className="card-img-top" alt="..."/>
-            <div className="card-body">
-                <h5 className="card-title">Card title</h5> Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque consequatur officia accusamus beatae quas numquam consequuntur eos deserunt iure, fugit accusantium sed molestiae odit nam totam sapiente ducimus nisi est laudantium quo pariatur. Corrupti voluptatum dolorem vitae mollitia facilis? Neque.
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div className="card" >
-            <img src="..." className="card-img-top" alt="..."/>
-            <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div className="card">
-            <img src="..." className="card-img-top" alt="..."/>
-            <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <ItemCount/>
-    </>
-}
+const ItemListContainer = () => {
+  const [listaProductos, setListaProductos] = useState([]);
+  const productos = [
+    { nombre: "3090", precio: "150USD", region: "America" },
+    { nombre: "3080", precio: "120USD", region: "Europa" },
+    { nombre: "3070", precio: "80USD", region: "Selecciones" },
+  ];
 
-export default ItemListContainer
+  const imprimirProductos = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (productos.length === 0) {
+          reject("sin productos disponibles");
+        } else {
+          resolve(productos);
+        }
+      }, 3000);
+    });
+  };
+  useEffect(() => {
+    imprimirProductos()
+      .then((respuesta) => setListaProductos(respuesta))
+      .catch((error) => console.error(error));
+  }, []);
+
+  return (
+    <div>
+      <h1>Remeras</h1>;
+      <ItemList lista={listaProductos} />
+    </div>
+  );
+};
+
+export default ItemListContainer;
