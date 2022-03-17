@@ -13,6 +13,9 @@ function ItemList({ lista }) {
                 titulo={item.nombre}
                 precio={item.precio}
                 region={item.region}
+                id={item.id}
+                name={item.name}
+                description={item.description}
               />
             </div>
           </div>
