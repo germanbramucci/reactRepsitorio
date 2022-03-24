@@ -6,10 +6,10 @@ function ItemCount({max = 10, cantidad, setCantidad, agregarCarrito}){
 
 
     const sumaItem=()=>{
-        cantidad > 1 && setCantidad(cantidad - 1)
+        cantidad < max && setCantidad(cantidad + 1)
     }
     const restaItem=()=>{
-        setCount(count-1)
+        cantidad > 1 && setCantidad(cantidad - 1)
     }
     return<>
         <div className="contenedorCount">
