@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { pedirDatos } from "../Helpers/PedirDatos";
 import ItemDetail from './ItemDetail' 
+import { stock } from "../Data/Stock";
 
 
 
@@ -16,9 +17,9 @@ function ItemDetailContainer(){
     useEffect(()=>{
         setLoading(true)
 
-        pedirDatos()
+        pedirDatos(stock)
             .then((res) =>{
-                setItem( res.find((prod)=> prod.id === Number(itemId)) )
+                setItem( res.filter((prod)=> prod.id === Number(itemId)) )
             })
             .finally(()=>{
                 setLoading(false)
@@ -30,7 +31,10 @@ function ItemDetailContainer(){
                 {
                     loading
                     ? <h2>Cargando...</h2>
-                    : <ItemDetail {...item}/>
+                    : <ItemDetail nombre={item.nombre}
+                    region={item.region}
+                    precio={item.precio}
+                    />
                 }
             </>
         )

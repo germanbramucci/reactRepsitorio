@@ -12,6 +12,7 @@ import {
   Navigate
 } from "react-router-dom";
 import ItemDetailContainer from './Componentes/ItemDetailContainer';
+import Cart from './Componentes/Cart';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/' element={ <ItemListContainer/> }/>
         <Route path='/camisetas/:categoryId' element={ <ItemListContainer/> }/>
         <Route path='/detail/:itemId' element={<ItemDetailContainer/>}/>
+        <Route path='/cart' element={<Cart/>}/>
         <Route path='/nosotros' element={ <Nosotros/> }/>
         <Route path='/login' element={ <Login/> }/>
         <Route path='*' element={ <Navigate to='/'/> }/>
