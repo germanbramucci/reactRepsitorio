@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-function ItemCount({max = 10, cantidad, setCantidad, agregarCarrito}){
+function ItemCount({max = 10, item}){
 
+    const [cantidad, setCantidad] = useState(0)
+
+    const agregarCarrito = (item) =>{
+        console.log(item)
+    }
 
     const sumaItem=()=>{
         cantidad < max && setCantidad(cantidad + 1)
@@ -17,7 +22,7 @@ function ItemCount({max = 10, cantidad, setCantidad, agregarCarrito}){
             <span className="mx-3">{cantidad}</span>
             <button className="btn btn-primary" onClick={sumaItem}>+</button>
             <br/>
-            <Link className="btn btn-success my-2" onClick={agregarCarrito} to={"/cart"}>Agregar al carrito</Link>
+            <button className="btn btn-success my-2" onClick={()=>agregarCarrito(item)} >Agregar al carrito</button>
         </div>
     </>
 }

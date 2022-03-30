@@ -12,7 +12,9 @@ import {
   Navigate
 } from "react-router-dom";
 import ItemDetailContainer from './Componentes/ItemDetailContainer';
-import Cart from './Componentes/Cart';
+import { Cart } from './Componentes/Cart';
+import { CartProvider } from './context/CartContext'
+
 
 
 
@@ -20,22 +22,24 @@ import Cart from './Componentes/Cart';
 function App() {
 
   return (
-    <BrowserRouter>
-      
-      <NavBar/>
-      
-      <Routes>
-        <Route path='/' element={ <ItemListContainer/> }/>
-        <Route path='/camisetas/:categoryId' element={ <ItemListContainer/> }/>
-        <Route path='/detail/:itemId' element={<ItemDetailContainer/>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/nosotros' element={ <Nosotros/> }/>
-        <Route path='/login' element={ <Login/> }/>
-        <Route path='*' element={ <Navigate to='/'/> }/>
-      </Routes>
-      
-      
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        
+        <NavBar/>
+        
+        <Routes>
+          <Route path='/' element={ <ItemListContainer/> }/>
+          <Route path='/camisetas/:categoryId' element={ <ItemListContainer/> }/>
+          <Route path='/detail/:itemId' element={<ItemDetailContainer/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/nosotros' element={ <Nosotros/> }/>
+          <Route path='/login' element={ <Login/> }/>
+          <Route path='*' element={ <Navigate to='/'/> }/>
+        </Routes>
+        
+        
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

@@ -31,9 +31,7 @@ function ItemDetailContainer(){
                 {
                     loading
                     ? <h2>Cargando...</h2>
-                    : <ItemDetail nombre={item.nombre}
-                    region={item.region}
-                    precio={item.precio}
+                    : <ItemDetail nombre={item}
                     />
                 }
             </>

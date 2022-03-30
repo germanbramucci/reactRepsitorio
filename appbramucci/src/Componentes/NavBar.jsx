@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../logoD.jpg'
 import Carrito from './Carrito'
+import { CartWidget } from '../CartWidget/CartWidget'
 
 function NavBar() {
     return<>
@@ -50,7 +51,7 @@ function NavBar() {
                             <Link className='items' to='/login'>Login</Link>
                         </li>
                     </ul> */}
-                <Carrito/>
+                <CartWidget/>
         </nav>
     </>
 }

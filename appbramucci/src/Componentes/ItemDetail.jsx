@@ -1,40 +1,58 @@
 import React from "react";
+import { useContext, useState } from "react"
+import { Link } from "react-router-dom"
+import { CartContext } from "../../context/CartContext"
 import ItemCount from "./ItemCount";
 
 
-function ItemDetail({id, nombre, region, precio, stock}){
-    
-    const [cantidad, setCantidad] = useState(0)
+function ItemDetail({item}){
 
-    const agregarCarrito = () => {
-        const itemToCart = {
-            id,
-            nombre,
-            precio,
-            region,
-            stock
+    const { agregarAlCarrito, isInCart } = useContext(CartContext)
+    const handleAgregar = () => {
+        if (cantidad === 0) return
+        if (!isInCart(id)) {
+            const addItem = {
+                id, nombre, precio, stock, cantidad
+            }
+
+            agregarAlCarrito(addItem)
         }
-
-        console.log(itemToCart)
     }
-
-    
-    return(
+    return  (
             <>
-            <div className="container">
-                <h2>{nombre}</h2>
-                <h5>Precio ${precio}</h5>
-                <h5>Region: {region}</h5>
+                <div className="container">
+                    <h2>{item[0].nombre}</h2>
+                    <h5>Precio ${item[0].precio}</h5>
+                    <h5>Region: {item[0].region}</h5>
 
-                <ItemCount
-                max={stock} 
-                cantidad={cantidad} 
-                setCantidad={setCantidad}
-                handleAgregar={agregarCarrito}
-                />
-            </div>
+                    {/* <ItemCount
+                    max={item[0].stock} 
+                    item={item}
+                    /> */}
+                    {
+                    isInCart(id) 
+                    ?  <Link to="/cart" className="btn btn-success my-3">
+                            Terminar mi compra
+                        </Link>
+                    :
+                        <>
+                            <ItemCount 
+                                max={stock} 
+                                counter={cantidad} 
+                                setCounter={setCantidad}
+                            />
+
+                            <button
+                                className="btn btn-success my-2"            
+                                onClick={handleAgregar}
+                            >
+                                Agregar al carrito
+                            </button>
+                        </>
+                    }
+                </div>
             </>
-        )
+            )
 }
 
 export default ItemDetail

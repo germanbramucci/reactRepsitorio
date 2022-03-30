@@ -1,6 +1,6 @@
-import {stock} from '../Data/Stock'
 
-export const pedirDatos = () =>{
+
+export const pedirDatos = (stock) =>{
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(stock)

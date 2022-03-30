@@ -1,11 +1,40 @@
-import React from "react";
+import { useContext } from "react"
+import { CartContext } from "../../context/CartContext"
+import { BsFillTrashFill } from 'react-icons/bs'
 
-function Cart(){
-    return(
-        <>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ipsa, nihil voluptas alias molestias voluptatum accusantium reiciendis aut quis odit, labore eius earum esse, facere adipisci dolores quod quibusdam explicabo nobis? Cum, esse at, perspiciatis ut ad eum consequuntur voluptatum beatae facere sed voluptatibus. Natus, alias vitae! Reiciendis odio minima blanditiis, voluptate quam libero. Hic neque facere quas odit quo, unde at eos omnis asperiores modi totam corporis quod eius atque eveniet alias, quidem blanditiis ullam adipisci dolorum nihil nobis aspernatur nam accusantium. Maiores, modi pariatur ut assumenda facilis id, sequi doloremque consequatur explicabo molestiae quia quis aut natus nesciunt?</p>
-        </>
+
+const Cart = () => {
+
+    const { cart, totalCart, vaciarCart, eliminarItem } = useContext(CartContext)
+
+
+    return (
+        <div className="container my-4">
+            <h2>Tu compra</h2>
+            <hr/>
+
+            {
+                cart.map((item) => (
+                    <div key={item.id}>
+                        <h4>{item.nombre}</h4>
+                        <p>Cantidad: {item.cantidad}</p>
+                        <p>Precio: ${item.cantidad * item.precio}</p>
+                        <button className="btn btn-danger" onClick={() => eliminarItem(item.id)}>
+                            <BsFillTrashFill/>
+                        </button>
+                    </div>
+                ))
+            }
+
+            <hr/>
+            <h2>Total: ${totalCart()}</h2>
+
+            <div className="my-2">
+                <button className="btn btn-danger" onClick={vaciarCart}>Vaciar carrito</button>
+                <button className="btn btn-success mx-2">Terminar mi compra</button>
+            </div>
+        </div>
     )
-}
+} 
 
 export default Cart
