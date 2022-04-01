@@ -2,8 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../logoD.jpg'
-import Carrito from './Carrito'
-import { CartWidget } from '../CartWidget/CartWidget'
+import { CartWidget } from './CartWidget'
 
 function NavBar() {
     return<>

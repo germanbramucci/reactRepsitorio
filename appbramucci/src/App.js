@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 import ItemDetailContainer from './Componentes/ItemDetailContainer';
 import { Cart } from './Componentes/Cart';
-import { CartProvider } from './context/CartContext'
+import { CartProvider } from './Context/CartContext'
 
 
 
