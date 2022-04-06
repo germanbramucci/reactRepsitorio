@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { pedirDatos } from "../Helpers/PedirDatos";
 import ItemDetail from './ItemDetail' 
-import { stock } from "../Data/Stock";
-
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Helpers/firebase";
+import { async } from "@firebase/util";
 
 
 function ItemDetailContainer(){
