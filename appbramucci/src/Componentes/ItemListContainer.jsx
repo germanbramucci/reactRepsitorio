@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Helpers/firebase";
+import { async } from "@firebase/util";
 
 const ItemListContainer = () => {
   const [listaProductos, setListaProductos] = useState([]);
-  const productos = [
-    { nombre: "Manchester United 2007 Visitante", precio: "150USD", region: "Europa", id: '1' },
-    { nombre: "Boca Jrs 2009 Local", precio: "120USD", region: "America" },
-    { nombre: "Argentina Local 2001", precio: "80USD", region: "Selecciones" },
-  ];
+
 
   const {categoryId} = useParams()
   console.log(categoryId)
 
 
-  const imprimirProductos = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (productos.length === 0) {
-          reject("sin productos disponibles");
-        } else {
-          resolve(productos);
-        }
-      }, 1000);
-    });
-  };
+  // const imprimirProductos = () => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (productos.length === 0) {
+  //         reject("sin productos disponibles");
+  //       } else {
+  //         resolve(productos);
+  //       }
+  //     }, 1000);
+  //   });
+  // };
 
   useEffect(() => {
-    imprimirProductos()
-      .then((respuesta) =>{
-        if(!categoryId){
-          setListaProductos(respuesta)
-        }else{
-          setListaProductos(respuesta.filter((productos)=>productos.region === categoryId))
-        }
-      })
-      .catch((error) => console.error(error));
+    const getData = async()=>{
+      const query = collection(db,'items');
+      const response = await getDocs(query)
+      const dataItems = response.docs.map(doc=>{return{id: doc.id, ...doc.data()}})
+      setListaProductos(dataItems)
+    }
+    getData();
+    // imprimirProductos()
+    //   .then((respuesta) =>{
+    //     if(!categoryId){
+    //       setListaProductos(respuesta)
+    //     }else{
+    //       setListaProductos(respuesta.filter((productos)=>productos.region === categoryId))
+    //     }
+    //   })
+    //   .catch((error) => console.error(error));
   }, [categoryId]);
 
   return (

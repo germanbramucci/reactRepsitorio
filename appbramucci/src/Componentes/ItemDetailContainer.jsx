@@ -15,15 +15,24 @@ function ItemDetailContainer(){
     const {itemId} = useParams()
 
     useEffect(()=>{
+
         setLoading(true)
 
-        pedirDatos(stock)
-            .then((res) =>{
-                setItem( res.filter((prod)=> prod.id === Number(itemId)) )
-            })
-            .finally(()=>{
-                setLoading(false)
-            })
+        const getData = async()=>{
+            const query = collection(db,'items');
+            const response = await getDocs(query)
+            const dataItems = response.docs.map(doc=>{return{id: doc.id, ...doc.data()}})
+            setItem(dataItems, res.filter((prod)=> prod.id === Number(itemId)))
+          }
+          getData()
+
+        // pedirDatos(stock)
+        //     .then((res) =>{
+        //         setItem( res.filter((prod)=> prod.id === Number(itemId)) )
+        //     })
+        //     .finally(()=>{
+        //         setLoading(false)
+        //     })
     })
 
         return(
