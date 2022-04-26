@@ -1,28 +1,27 @@
 import React from "react";
 import Item from "./Item";
 
-function ItemList({ lista }) {
+const ItemList = ({ products, loading }) => {
   return (
-    <div>
-      {lista.map((item, index) => (
-        <div className="card">
-          <div className="row">
-            <div className="col-md-4">
+    <div className="container">
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {products.map((product, index) => {
+          return (
+            <div className="col" key={index}>
               <Item
-                key={index}
-                titulo={item.nombre}
-                precio={item.precio}
-                region={item.region}
-                id={item.id}
-                name={item.name}
-                description={item.description}
+                id={product.id}
+                description={product.description}
+                price={product.price}
+                stock={product.stock}
+                pictureUrl={product.pictureUrl}
+                loading={loading}
               />
             </div>
-          </div>
-        </div>
-      ))}
+          );
+        })}
+      </div>
     </div>
   );
-}
+};
 
 export default ItemList;

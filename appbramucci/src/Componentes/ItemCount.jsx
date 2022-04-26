@@ -1,30 +1,22 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-
-function ItemCount({max = 10, item}){
-
-    const [cantidad, setCantidad] = useState(0)
-
-    const agregarCarrito = (item) =>{
-        console.log(item)
-    }
-
-    const sumaItem=()=>{
-        cantidad < max && setCantidad(cantidad + 1)
-    }
-    const restaItem=()=>{
-        cantidad > 1 && setCantidad(cantidad - 1)
-    }
-    return<>
-        <div className="contenedorCount">
-            <button className="btn btn-outline-primary" onClick={restaItem}>-</button>
-            <span className="mx-3">{cantidad}</span>
-            <button className="btn btn-primary" onClick={sumaItem}>+</button>
-            <br/>
-            <button className="btn btn-success my-2" onClick={()=>agregarCarrito(item)} >Agregar al carrito</button>
+export const ItemCount = ({ stock, onAdd, setItems, items, initial }) => {
+    const addItem = () => {
+      items < stock && setItems(items + 1);
+    };
+  
+    const removeItem = () => {
+      items > initial && setItems(items - 1);
+    };
+  
+    return (
+      <div className="item-count-container d-grid gap-2 m-auto">
+        <div className="d-flex justify-content-between mb-2 text-primary">
+          <i className="far fa-minus-square icon" onClick={removeItem}></i>
+          <span className="text-secondary">{items}</span>
+          <i className="far fa-plus-square icon" onClick={addItem}></i>
         </div>
-    </>
-}
-
-export default ItemCount
+        <button type="button" className="btn btn-primary" onClick={onAdd}>
+          Agregar al carrito
+        </button>
+      </div>
+    );
+  };

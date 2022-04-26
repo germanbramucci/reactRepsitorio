@@ -1,54 +1,40 @@
 import React, { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Helpers/firebase";
-import { async } from "@firebase/util";
 
-const ItemListContainer = () => {
-  const [listaProductos, setListaProductos] = useState([]);
-
-
-  const {categoryId} = useParams()
-  console.log(categoryId)
-
-
-  // const imprimirProductos = () => {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       if (productos.length === 0) {
-  //         reject("sin productos disponibles");
-  //       } else {
-  //         resolve(productos);
-  //       }
-  //     }, 1000);
-  //   });
-  // };
-
+const ItemListContainer = ({ heading }) => {
+  const [products, setProducts] = useState([{}]);
+  const [loading, setLoading] = useState(true);
+  const { category } = useParams();
+  console.log(category);
   useEffect(() => {
-    const getData = async()=>{
-      const query = collection(db,'items');
-      const response = await getDocs(query)
-      const dataItems = response.docs.map(doc=>{return{id: doc.id, ...doc.data()}})
-      setListaProductos(dataItems)
-    }
-    getData();
-    // imprimirProductos()
-    //   .then((respuesta) =>{
-    //     if(!categoryId){
-    //       setListaProductos(respuesta)
-    //     }else{
-    //       setListaProductos(respuesta.filter((productos)=>productos.region === categoryId))
-    //     }
-    //   })
-    //   .catch((error) => console.error(error));
-  }, [categoryId]);
+    const itemsRef = collection(db, "items");
+    const q = category
+      ? query(itemsRef, where("category", "==", category))
+      : itemsRef;
+
+    getDocs(q)
+      .then((res) => {
+        setProducts(
+          res.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          })
+        );
+      })
+
+      .finally(() => setLoading(false));
+  }, [category]);
 
   return (
-    <div>
-      <h1>Camisetas</h1>;
-      <ItemList lista={listaProductos} />
-    </div>
+    <>
+      <h1 className="display-5 text-center primary-heading">{heading}</h1>
+      <ItemList products={products} loading={loading} />
+    </>
   );
 };
 
